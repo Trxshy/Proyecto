@@ -3,8 +3,10 @@ from django.shortcuts import render
 # Create your views here.
 
 
-from joblib import load
+import joblib
 import warnings
+import pandas as pd
+from sklearn import preprocessing
 from sklearn.preprocessing import RobustScaler
 warnings.filterwarnings("ignore")
 
@@ -12,7 +14,7 @@ warnings.filterwarnings("ignore")
 
 def paginaprincipal(request):
     
-    modelo = load('.\modelo\modelo_completo.joblib')
+    modelo = joblib.load('.\modelo\modelo_completo.joblib')
     if request.method == "GET":
         return render(
         request,
@@ -31,14 +33,17 @@ def paginaprincipal(request):
         Cloud9am = request.POST['Cloud9am'] 
         Cloud3pm = request.POST['Cloud3pm']
 
-        
-        x_scaled = RobustScaler().fit_transform([[MinTemp, MaxTemp, Evaporation, Sunshine, WindGustSpeed, Hum9am, Hum3pm, Pres9am, Pres3pm, Cloud9am, Cloud3pm]])
+        datos = [[MinTemp, MaxTemp, Evaporation, Sunshine, WindGustSpeed, Hum9am, Hum3pm, Pres9am, Pres3pm, Cloud9am, Cloud3pm]]
+
+        scaled = preprocessing.RobustScaler()
+        x_scaled = scaled.fit_transform(datos)
     
     salida = { 
-        'predict': int(modelo.predict((x_scaled)))
+        'predict': int(modelo.predict((datos)))
     }
     print(salida)
     print(x_scaled)
+    print(datos)
     context={
         'titulo':'Weather prediction',
         'salida':salida
