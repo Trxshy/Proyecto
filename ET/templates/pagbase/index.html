@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es-cl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{titulo}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css" type="text/css">
+</head>
+<body class="body">
+
+    <div class="card">
+        <div class="card-header" style=" display: flex; justify-content: center;">Predicción de lluvia</div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <label for="MinTemp" class="form-control">Temperatura mínima </label>
+                    <input class="form-control" name="MinTemp" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="MaxTemp" class="form-control">Temperatura máxima</label>
+                    <input class="form-control" step = 'any' name="MaxTemp" type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Evaporation" class="form-control">Evaporación</label>
+                    <input class="form-control" name="Evaporation" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Sunshine" class="form-control">Cantidad de horas de sol al día</label>
+                    <input class="form-control" name="Sunshine" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="WindGustSpeed" class="form-control">Velocidad del viento</label>
+                    <input class="form-control" name="WindGustSpeed" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Hum9am" class="form-control">Humedad 9am</label>
+                    <input class="form-control" name="Hum9am" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Hum3pm" class="form-control">Humedad 3pm</label>
+                    <input class="form-control" name="Hum3pm" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Pres9am" class="form-control">Presión atmosférica 9am </label>
+                    <input class="form-control" name="Pres9am" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Pres3pm" class="form-control">Presión atmosférica 3pm</label>
+                    <input class="form-control" name="Pres3pm" step = 'any' type="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Cloud9am" class="form-control">Nubosidad 9am</label>
+                    <input class="form-control" name="Cloud9am" step = 'any' type="number"required>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="Cloud3pm" class="form-control">Nubosidad 3pm</label>
+                    <input class="form-control" name="Cloud3pm" step = 'any' type="number" required>
+                </div>
+
+                    <a href="{{paginaprincipal}}"><button type="submit" class = 'btn btn-primary'>Enviar</button></a>
+            </div>
+            <div class="card-footer">
+                <form action="" method="POST">
+                    {% if predict == 1 %}
+
+                        <span>{{ predict }}</span>
+
+                    {% elif predict == 0 %}
+
+                        <span>{{ predict }}</span>
+
+                    {% endif %}
+                </form>
+            </div>
+        </form>
+      </div>
+
+</body>
+</html>
